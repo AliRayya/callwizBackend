@@ -17,7 +17,7 @@ class amiType extends Controller
                     'scheme' => 'tcp://',
                     'port' => 5038,
                     'username' => 'telaxess',
-                    'secret' => '1234561',
+                    'secret' => '123456',
                     'connect_timeout' => 10000,
                     'read_timeout' => 10000
                     )

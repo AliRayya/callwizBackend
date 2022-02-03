@@ -22,7 +22,7 @@ class AmiConnectionController
             OpenConnectionController::openConnection($amiUser);
             echo "Success";
         } catch (\Throwable $th) {
-            echo "FAILED";
+            echo "Failed";
         }
      }
 }

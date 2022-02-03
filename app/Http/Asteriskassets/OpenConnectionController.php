@@ -93,8 +93,7 @@ use Monolog\Handler\StreamHandler;
 
 class OpenConnectionController
 {
-
-
+    
     public static function openConnection($amiUser)
     {
         $amiType = new amiType;
@@ -105,6 +104,33 @@ class OpenConnectionController
         $monolog->pushHandler($handler);
         $pamiClient->setLogger($monolog);
         $pamiClient->open();   
-        $pamiClient->close();
+        // $sendMsg = new DBPutAction('vars/new','321','4321');
+        // $msgRespo = $pamiClient->send($sendMsg);
+        // var_dump($msgRespo);
+        $originateMsg = new OriginateAction('Local/111@incoming-calls');
+        $originateMsg->setContext('incoming-calls');
+        $originateMsg->setPriority('1');
+        $originateMsg->setExtension('111');
+        // // $originateMsg->setCallerId($sipNumber);
+        // $originateMsg->setAsync(false);
+        // // $originateMsg->setActionID($actionid);
+        // var_dump($originateMsg->getKeys());
+        // var_dump('\n');
+        $a=0;
+        $b=0;
+        for ($i=0; $i < 100 ; $i++) { 
+            $b++;
+            $orgresp = $pamiClient->send($originateMsg);
+            $orgStatus = $orgresp->getKeys()['response'];
+            if ($orgStatus == 'Success') {
+                $a++;
+            }
+            if ($b == 250){
+                sleep(1);
+                $b=0;
+            }
+            $pamiClient->process();
+        }
+        var_dump($a);
     }
 }
