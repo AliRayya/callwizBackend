@@ -73,7 +73,7 @@ class NumbersGenerator extends Command
         // $prefix = getDestinationPrefix($_dest); // SQL Query to destination/prefix table 
         $Ddigits = 10;
         $ANIdigits = 9;
-        $trafficStream = new TrafficStream();
+        
         
         for ($i=0; $i < $attempts; $i++) { 
             
@@ -81,7 +81,9 @@ class NumbersGenerator extends Command
                     DB::table('generated_calls')->insert([
                     'dialed_number' => $this->n_digit_random($Ddigits),
                     'ANI' => $this->n_digit_random($ANIdigits),
-                    'traffic_stream_id' => '1',
+                    'traffic_stream_id' => 
+                        TrafficStream::where('traffic_name', 'test_traffic')
+                        ->value('id')
                     ]); 
             } catch (\Throwable $th) {
                 echo $th->getMessage();

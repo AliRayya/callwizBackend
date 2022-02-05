@@ -21,6 +21,9 @@ class TrafficStream extends Model
         'traffic_end_time',
         'traffic_type',
     ];
+
+    // TODO Traffic Stream should be Unique
+    
     public function GeneratedCalls()
     {
         return $this->hasMany(GeneratedCall::class);
